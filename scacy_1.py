@@ -1,11 +1,9 @@
 import spacy
-import nltk
-nltk.download('punkt')
-from nltk.stem import PorterStemmer
 
+# Load spaCy English model
 nlp = spacy.load('en_core_web_sm')
-stemmer = PorterStemmer()
 
+# Sample text
 example_string = """
 Sagar (PRN: UIT22M1019) is pursuing B.Tech in Information Technology at Sanjivani College of Engineering.
 He is passionate about AI and machine learning.
@@ -14,19 +12,21 @@ He enjoys working on Python projects in his free time.
 His favorite subjects are Data Structures, Algorithms, and Cloud Computing.
 """
 
+
 doc = nlp(example_string)
 
 sentences = [sent.text for sent in doc.sents]
-print(sentences)
+print("Sentences:\n", sentences)
+
 
 words = [token.text for token in doc if not token.is_punct]
-print(words)
+print("\nWords (excluding punctuation):\n", words)
 
 filtered_words = [token.text for token in doc if not token.is_punct and not token.is_stop]
-print(filtered_words)
+print("\nFiltered Words (no stop words, no punctuation):\n", filtered_words)
+
 
 lemmatized_words = [token.lemma_ for token in doc if not token.is_punct and not token.is_stop]
-print(lemmatized_words)
+print("\nLemmatized Words:\n", lemmatized_words)
 
-stemmed_words = [stemmer.stem(token.text) for token in doc if not token.is_punct and not token.is_stop]
-print(stemmed_words)
+
